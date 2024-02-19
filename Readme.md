@@ -50,5 +50,3 @@ This will remove the `lb.exe` executable file from the `bin` directory.
 
 - [Refence Article](https://kasvith.me/posts/lets-create-a-simple-lb-go/)
 
-
-Feel free to customize this README.md file to better suit your project's needs.
