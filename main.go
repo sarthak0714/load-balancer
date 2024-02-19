@@ -115,17 +115,16 @@ func isServerAlive(u *url.URL) bool{
 	return true
 }
 
-func healthCheck(){	
-	t:=time.Minute*2
+func healthCheck(){
+	t:=time.NewTicker(time.Minute*2)
 	for{
-	select{
-	case<-t.C:
-		log.Println("Started Health Check")
-		serverPool.HealthCheck()
-		log.Println("Health Check Completed")
+		select{
+		case<-t.C:
+			log.Println("Starting health check...")
+			serverPool.HealthCheck()
+			log.Println("Health check completed")
 		}
 	}
-
 }
 
 func loadBalance(w http.ResponseWriter, r* http.Request){
@@ -137,7 +136,7 @@ func loadBalance(w http.ResponseWriter, r* http.Request){
 	}
 	peer:=serverPool.GetNext()
 	if peer!=nil{
-		peer.ReverseProxy.ServeHTTP(w,r)\
+		peer.ReverseProxy.ServeHTTP(w,r)
 		return
 	}
 	http.Error(w,"Service Unavailable",http.StatusServiceUnavailable)

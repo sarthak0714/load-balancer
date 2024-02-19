@@ -1,0 +1,14 @@
+GO=go
+BINARY_NAME=lb.exe
+BIN_DIR=bin
+
+all: build
+
+build:
+	$(GO) build -o $(BIN_DIR)/$(BINARY_NAME) main.go
+
+run: build
+	./$(BIN_DIR)/$(BINARY_NAME) $(filter-out $@,$(MAKECMDGOALS))
+
+clean:
+	rm -f $(BIN_DIR)/$(BINARY_NAME)
